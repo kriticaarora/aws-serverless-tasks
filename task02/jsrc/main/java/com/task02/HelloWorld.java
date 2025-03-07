@@ -15,17 +15,29 @@ import java.util.Map;
 	aliasName = "${lambdas_alias_name}",
 	logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
-public class HelloWorld implements RequestHandler<Object, Map<String, Object>> {
 
-	public Map<String, Object> handleRequest(Object request, Context context) {
-		System.out.println("Hello from lambda");
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("statusCode", 200);
-		resultMap.put("message", "Hello from Lambda");
-		resultMap.put("statusCode", 400);
-		resultMap.put("message", "Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}");
-		return resultMap;
-	}
+@LambdaUrlConfig(authType = AuthType.NONE)  // Use appropriate AuthType as per your requirement
+public class HelloWorld implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
+    @Override
+    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent request, Context context) {
+        APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        response.setHeaders(headers);
+
+        String path = request.getPath();
+        String method = request.getHttpMethod();
+
+        if ("/hello".equals(path) && "GET".equalsIgnoreCase(method)) {
+            response.setStatusCode(200);
+            response.setBody("{\"message\": \"Hello from Lambda\"}");
+        } else {
+            response.setStatusCode(400);
+            response.setBody("{\"error\": \"Bad Request: The endpoint '" + path + "' and method '" + method + "' are not supported.\"}");
+        }
+        
+        return response;
+    }
 }
 
