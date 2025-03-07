@@ -22,6 +22,10 @@ public class HelloWorld implements RequestHandler<Object, Map<String, Object>> {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("statusCode", 200);
 		resultMap.put("message", "Hello from Lambda");
+		resultMap.put("statusCode", 400);
+		resultMap.put("message", "Bad request syntax or unsupported method. Request path: {path}. HTTP method: {method}");
 		return resultMap;
 	}
+
 }
+
