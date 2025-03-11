@@ -7,5 +7,17 @@
     ],
     "resource_type": "iam_role",
     "tags": {}
+  },
+  "task3_api": {
+    "resource_type": "api_gateway",
+    "resources": {
+      "/hello": {
+        "GET": {
+          "integration": "AWS_PROXY",
+          "lambda_function": "hello_world"
+        }
+      }
+    },
+    "deploy_stage": "api"
   }
 }
