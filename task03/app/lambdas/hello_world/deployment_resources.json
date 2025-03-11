@@ -14,7 +14,8 @@
       "/hello": {
         "GET": {
           "integration": "AWS_PROXY",
-          "lambda_function": "hello_world"
+          "lambda_function": "hello_world",
+          "authorization_type": "NONE"
         }
       }
     },
