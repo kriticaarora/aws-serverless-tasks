@@ -33,18 +33,17 @@
       "/hello": {
         "enable_cors": false,
         "GET": {
-          "enable_proxy": true,
-          "integration_request_body_template": {},
           "authorization_type": "NONE",
           "integration_type": "lambda",
-          "method_request_parameters": {},
-          "default_error_pattern": true,
           "lambda_name": "hello_world",
+          "api_key_required": false,
+          "method_request_parameters": {},
+          "integration_request_body_template": {},
           "responses": [],
-          "integration_responses": []
+          "integration_responses": [],
+          "default_error_pattern": true
+        }
       }
-
-    }
     },
     "tags": {}
   }
