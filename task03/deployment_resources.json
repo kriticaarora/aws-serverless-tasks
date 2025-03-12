@@ -31,7 +31,7 @@
     "dependencies": [],
     "resources": {
       "/hello": {
-        "enable_cors": true,
+        "enable_cors": false,
         "GET": {
           "enable_proxy": true,
           "integration_request_body_template": {},
@@ -39,12 +39,12 @@
           "integration_type": "lambda",
           "method_request_parameters": {},
           "default_error_pattern": true,
-          "integration_passthrough_behavior": "WHEN_NO_TEMPLATES",
-          "lambda_name": "hello_world"
-        }
+          "lambda_name": "hello_world",
+          "responses": [],
+          "integration_responses": []
       }
 
-    },
+    }},
     "tags": {}
   }
 }
