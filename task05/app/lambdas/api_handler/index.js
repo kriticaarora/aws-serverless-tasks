@@ -16,7 +16,7 @@ exports.handler = async (event) => {
         if (!requestBody.principalId || !requestBody.content) {
             return {
                 statusCode: 400,
-                body: JSON.stringify({ message: "Invalid request: 'principalId' and 'content' are required." }),
+                body: "Invalid request: 'principalId' and 'content' are required.",
             };
         }
 
@@ -37,14 +37,14 @@ exports.handler = async (event) => {
         // Success response
         return {
             statusCode: 201,
-            body: JSON.stringify({ event: newEvent }),
+            body:  {event: newEvent} ,
         };
 
     } catch (error) {
         console.error("Error saving event:", error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: "Internal server error" }),
+            body: "Internal server error" ,
         };
     }
 };
