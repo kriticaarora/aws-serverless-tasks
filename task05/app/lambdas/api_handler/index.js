@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
 // Fetch table name from environment variable
-const TABLE_NAME = process.env.target_table;
+const TABLE_NAME = process.env.TARGET_TABLE;
 
 exports.handler = async (event) => {
     try {
@@ -37,7 +37,7 @@ exports.handler = async (event) => {
         // Success response
         return {
             statusCode: 201,
-            body:  {event: newEvent} ,
+            body: {event: newEvent} ,
         };
 
     } catch (error) {
