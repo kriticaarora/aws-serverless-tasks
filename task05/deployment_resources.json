@@ -32,7 +32,7 @@
   },
   "dynamodb_table": {
     "resource_type": "dynamodb_table",
-    "table_name": "cmtr-ed0b8fc6-Events",
+    "table_name": "Events",
     "hash_key_name": "id",
     "hash_key_type": "S",
     "read_capacity": 1,

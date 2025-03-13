@@ -36,8 +36,9 @@ exports.handler = async (event) => {
 
         // Success response
         return {
-            statusCode: 201,
-            body: {event: newEvent} ,
+            statusCode: 201,  
+            
+            body: JSON.stringify({ event: newEvent }),
         };
 
     } catch (error) {

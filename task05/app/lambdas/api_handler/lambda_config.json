@@ -11,7 +11,7 @@
   "dependencies": [],
   "event_sources": [],
   "env_variables": {
-    "TARGET_TABLE": "cmtr-ed0b8fc6-Events"
+    "TARGET_TABLE": "Events"
   },
   "publish_version": true,
   "alias": "${lambdas_alias_name}",
