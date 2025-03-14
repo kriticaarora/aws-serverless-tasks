@@ -36,16 +36,15 @@ exports.handler = async (event) => {
 
         // Success response
         return {
-            statusCode: 201,  
-            
-            body: JSON.stringify({ event: newEvent }),
+            "statusCode": 201,  
+            "body": JSON.stringify({ event: newEvent }),
         };
 
     } catch (error) {
         console.error("Error saving event:", error);
         return {
-            statusCode: 500,
-            body: "Internal server error" ,
+            "statusCode": "500",
+            "body": "Internal server error" ,
         };
     }
 };
