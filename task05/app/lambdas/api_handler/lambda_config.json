@@ -11,7 +11,7 @@
   "dependencies": [],
   "event_sources": [],
   "env_variables": {
-    "Events": "${target_table}"
+    "tablename": "${target_table}"
   },
   "publish_version": true,
   "alias": "${lambdas_alias_name}",

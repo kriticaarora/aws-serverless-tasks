@@ -1,11 +1,3 @@
-exports.handler = async (event) => {
-    // TODO implement
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify('Hello from Lambda!'),
-    };
-    return response;
-};
 const AWS = require("aws-sdk");
 const { v4: uuidv4 } = require("uuid");
 
@@ -13,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
 // Fetch table name from environment variable
-const table_name = process.env.target_table;
+const table_name = process.env.tablename;
 
 exports.handler = async (event) => {
     try {
@@ -51,7 +43,7 @@ exports.handler = async (event) => {
     } catch (error) {
         console.error("Error saving event:", error);
         return {
-            "statusCode": "500",
+            "statusCode": 500,
             "body": "Internal server error" ,
         };
     }
