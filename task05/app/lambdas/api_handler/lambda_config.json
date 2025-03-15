@@ -11,12 +11,13 @@
   "dependencies": [],
   "event_sources": [],
   "env_variables": {
-    "TARGET_TABLE": "Events"
+    "Events": "${target_table}"
   },
   "publish_version": true,
   "alias": "${lambdas_alias_name}",
   "url_config": {},
   "ephemeral_storage": 512,
-  "logs_expiration": "${logs_expiration}",
-  "tags": {}
+  "tags": {},
+  "logs_expiration":"$logs_expiration",
+  "target_table":"$target_table"
 }
