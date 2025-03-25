@@ -1,9 +1,9 @@
-const AWS = require("aws-sdk");
-const { v4: uuidv4 } = require("uuid");
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { PutCommand } from "@aws-sdk/lib-dynamodb";
+import { v4 as uuidv4 } from "uuid";
 
 
-const dynamoDB = new AWS.DynamoDB.DocumentClient();
-
+const dynamoDB = new DynamoDBClient();
 
 const table_name = process.env.target_table || "Events";
 
@@ -40,7 +40,7 @@ exports.handler = async (event) => {
         };
 
         // Save event to DynamoDB
-        const response = await dynamoDBClient.send(new PutCommand({
+        const response = await dynamoDB.send(new PutCommand({
             TableName: table_name,
             Item: newEvent,
         }));
