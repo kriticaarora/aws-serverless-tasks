@@ -76,52 +76,52 @@ function formatResponse(statusCode, body) {
 
 // SignUp handler
 async function handleSignup(event) {
-    try {
-      const { firstName, lastName, email, password } = JSON.parse(event.body);
-  
-      if (!firstName || !lastName || !email || !password) {
-        return formatResponse(400, { error: "All fields are required." });
-      }
-  
-      if (!/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-        return formatResponse(400, { error: "Invalid email format." });
-      }
-  
-      if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$%^*-_])[A-Za-z\d$%^*-_]{12,}$/.test(password)) {
-        return formatResponse(400, { error: "Invalid password format." });
-      }
-  
-      await cognito.adminCreateUser({
-        UserPoolId: USER_POOL_ID,
-        Username: email,
-        UserAttributes: [
-          { Name: "given_name", Value: firstName },
-          { Name: "family_name", Value: lastName },
-          { Name: "email", Value: email },
-          { Name: "email_verified", Value: "true" }
-        ],
-        TemporaryPassword: password,
-        MessageAction: "SUPPRESS",
-      }).promise();
-  
-      await cognito.adminSetUserPassword({
-        UserPoolId: USER_POOL_ID,
-        Username: email,
-        Password: password,
-        Permanent: true
-      }).promise();
-  
-      return formatResponse(200, { message: "User created successfully." });
-    } catch (error) {
-      console.error("Signup error:", error);
-  
-      if (error.code === "UsernameExistsException") {
-        return formatResponse(400, { error: "Email already exists." });
-      }
-  
-      return formatResponse(502, { error: "Signup failed." });
+  try {
+    const { firstName, lastName, email, password } = JSON.parse(event.body);
+
+    if (!firstName || !lastName || !email || !password) {
+      return formatResponse(400, { error: "All fields are required." });
     }
+
+    if (!/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+      return formatResponse(400, { error: "Invalid email format." });
+    }
+
+    if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$%^*-_])[A-Za-z\d$%^*-_]{12,}$/.test(password)) {
+      return formatResponse(400, { error: "Invalid password format." });
+    }
+
+    await cognito.adminCreateUser({
+      UserPoolId: USER_POOL_ID,
+      Username: email,
+      UserAttributes: [
+        { Name: "given_name", Value: firstName },
+        { Name: "family_name", Value: lastName },
+        { Name: "email", Value: email },
+        { Name: "email_verified", Value: "true" }
+      ],
+      TemporaryPassword: password,
+      MessageAction: "SUPPRESS",
+    }).promise();
+
+    await cognito.adminSetUserPassword({
+      UserPoolId: USER_POOL_ID,
+      Username: email,
+      Password: password,
+      Permanent: true
+    }).promise();
+
+    return formatResponse(200, { message: "User created successfully." });
+  } catch (error) {
+    console.error("Signup error:", error);
+
+    if (error.code === "UsernameExistsException") {
+      return formatResponse(400, { error: "Email already exists." });
+    }
+
+    return formatResponse(502, { error: "Signup failed." });
   }
+}
 
 // SignIn handler
 async function handleSignin(event) {
