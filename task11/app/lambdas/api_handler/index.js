@@ -91,25 +91,18 @@ async function handleSignup(event) {
       return formatResponse(400, { error: "Invalid password format." });
     }
 
-    await cognito.adminCreateUser({
-      UserPoolId: USER_POOL_ID,
-      Username: email,
-      UserAttributes: [
-        { Name: "given_name", Value: firstName },
-        { Name: "family_name", Value: lastName },
-        { Name: "email", Value: email },
-        { Name: "email_verified", Value: "true" }
-      ],
-      TemporaryPassword: password,
-      MessageAction: "SUPPRESS",
-    }).promise();
-
-    await cognito.adminSetUserPassword({
-      UserPoolId: USER_POOL_ID,
-      Username: email,
-      Password: password,
-      Permanent: true
-    }).promise();
+    const signUpParams = {
+        ClientId: CLIENT_ID,
+        Username: email,
+        Password: password,
+        UserAttributes: [
+          { Name: "given_name", Value: firstName },
+          { Name: "family_name", Value: lastName },
+          { Name: "email", Value: email },
+        ]
+      };
+  
+      await cognito.signUp(signUpParams).promise();
 
     return formatResponse(200, { message: "User created successfully." });
   } catch (error) {
